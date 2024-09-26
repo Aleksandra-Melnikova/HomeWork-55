@@ -26,6 +26,7 @@ function App() {
         {title: 'Bacon', cost: 60, src: bacon}
     ];
 
+    const [price, setPrice] = useState<number>(30);
     const [ingredients, setIngredients] = useState<IIngredients[]>([
         {name: 'Meat', count: 0},
         {name: 'Cheese', count: 0},
@@ -43,8 +44,16 @@ function App() {
         };
     }
     return {...ingredient};
+
 });
 
+        let priceToState = ingredientsItem.reduce((acc,item) => {
+            if((item.title === ingredientName)){
+                acc+= item.cost;
+            }
+            return acc;
+        },price);
+        setPrice(priceToState);
         setIngredients(copyIngredients);
         const newIngredientImage = document.createElement('DIV')
         newIngredientImage.className = ingredients[index].name;
@@ -86,7 +95,7 @@ function App() {
                         {/*<div className="Meat"></div>*/}
                         <div id="breadBottom" className="BreadBottom"></div>
                     </div>
-                    <span className='price'> Price: 0 </span>
+                    <span className='price'> Price: {price} som </span>
                 </div>
             </div>
         </>
