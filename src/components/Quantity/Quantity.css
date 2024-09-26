@@ -1,0 +1,6 @@
+.count-reset-wrapper{
+height: 109px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

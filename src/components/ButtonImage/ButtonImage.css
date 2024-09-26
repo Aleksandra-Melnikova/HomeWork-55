@@ -1,0 +1,17 @@
+
+.ingredient-image{
+    width: 100px;
+}
+
+.button-image{
+    display: grid;
+grid-template-columns: 1fr 1fr;
+    align-items: center;
+}
+.name{
+    font-size: 26px;
+}
+
+.price{
+    font-size: 24px;
+}
