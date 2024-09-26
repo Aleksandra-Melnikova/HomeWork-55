@@ -34,13 +34,23 @@ function App() {
         ]);
 
     const AddIngredientToBurger = (ingredientName:string) =>{
-console.log(ingredientName);
-ingredients.map(ingredient => {
-    if(ingredient.name === ingredientName) {
-        ingredient.count ++;
+        let index = ingredients.findIndex(ingredient => ingredient.name === ingredientName);
+    const copyIngredients = ingredients.map(ingredient => {
+    if (ingredient.name === ingredientName) {
+        return {
+            ...ingredient,
+            count: ingredient.count + 1,
+        };
     }
-})
-        setIngredients(ingredients);
+    return {...ingredient};
+});
+
+        setIngredients(copyIngredients);
+        const newIngredientImage = document.createElement('DIV')
+        newIngredientImage.className = ingredients[index].name;
+        const burgerImage = document.getElementById('burger') as HTMLImageElement;
+        burgerImage.insertBefore(newIngredientImage, document.getElementById('breadBottom'));
+
   };
 
 
@@ -66,15 +76,15 @@ ingredients.map(ingredient => {
             </div>
                 <div>
                     <h2>Burger</h2>
-                    <div className="Burger">
+                    <div id='burger' className="Burger">
                         <div className="BreadTop">
                             <div className="Seeds1"></div>
                             <div className="Seeds2"></div>
                         </div>
-                        <div className="Salad"></div>
-                        <div className="Cheese"></div>
-                        <div className="Meat"></div>
-                        <div className="BreadBottom"></div>
+                        {/*<div className="Salad"></div>*/}
+                        {/*<div className="Cheese"></div>*/}
+                        {/*<div className="Meat"></div>*/}
+                        <div id="breadBottom" className="BreadBottom"></div>
                     </div>
                     <span className='price'> Price: 0 </span>
                 </div>
