@@ -10,7 +10,7 @@ const Quantity:React.FC<Quantity> = ({count,deleteIngredient}) => {
     return (
         <div className='count-reset-wrapper'>
             <p>X {count}</p>
-            {count !== 0 ? <button onClick={deleteIngredient} type="button">Reset</button>:null}
+            {count !== 0 ? <button className="button-reset" onClick={deleteIngredient} type="button"></button>:null}
         </div>
     );
 };

@@ -18,7 +18,7 @@ interface IIngredients {
     count: number;
 }
 
-function App() {
+const App = () => {
     const ingredientsItem: IngredientType[] = [
         {title: 'Meat', cost: 80, src: meat},
         {title: 'Cheese', cost: 50, src: cheese},
@@ -36,17 +36,15 @@ function App() {
 
     const AddIngredientToBurger = (ingredientName:string) =>{
         let index = ingredients.findIndex(ingredient => ingredient.name === ingredientName);
-    const copyIngredients = ingredients.map(ingredient => {
-    if (ingredient.name === ingredientName) {
-        return {
+            const copyIngredients = ingredients.map(ingredient => {
+                if (ingredient.name === ingredientName) {
+                return {
             ...ingredient,
             count: ingredient.count + 1,
-        };
-    }
-    return {...ingredient};
-
-});
-
+                };
+            }
+                return {...ingredient};
+            });
         let priceToState = ingredientsItem.reduce((acc,item) => {
             if((item.title === ingredientName)){
                 acc+= item.cost;
@@ -59,7 +57,6 @@ function App() {
         newIngredientImage.className = ingredients[index].name;
         const burgerImage = document.getElementById('burger') as HTMLImageElement;
         burgerImage.insertBefore(newIngredientImage, document.getElementById('breadBottom'));
-
   };
 
     const DeleteIngredient =(ingredientName:string) => {
@@ -72,19 +69,17 @@ function App() {
                 };
             }
             return {...ingredient};
-
         })
+
         let priceToState = ingredientsItem.reduce((acc, item) => {
             if ((item.title === ingredientName)) {
                 acc -= item.cost;
             }
             return acc;
         }, price);
-
         setPrice(priceToState);
         setIngredients(copyIngredients);
         const deleteIngredientImage = document.getElementsByClassName(ingredients[index].name);
-        console.log(deleteIngredientImage);
         deleteIngredientImage[0].remove();
     }
 
@@ -92,7 +87,7 @@ function App() {
   return (
     <>
         <div className="content">
-            <div className='content-item'>
+            <div>
                 <h2>Ingredients</h2>
                 <div className='ingredients-block'>
                     <div className='ingredients-left'>
@@ -123,6 +118,6 @@ function App() {
             </div>
         </>
   )
-}
+};
 
 export default App

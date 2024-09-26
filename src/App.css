@@ -5,15 +5,17 @@
   text-align: center;
 }
 .content{
+  width: 80%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   justify-content: center;
 }
 
 .ingredients-block{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  margin: 0 auto;
+  width: 80%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
 .ingredient-left{
@@ -23,7 +25,6 @@
 .ingredient-right{
   flex-basis: 30%;
 }
-
 
 .BreadBottom {
   height: 13%;
@@ -140,8 +141,8 @@
 
 .Burger {
   width: 100%;
-  margin: auto;
-  height: 250px;
+  margin: 50px auto 0;
+  height: 260px;
   overflow: auto;
   text-align: center;
   font-weight: bold;

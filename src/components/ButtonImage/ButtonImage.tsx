@@ -11,17 +11,11 @@ interface ButtonImage {
 const ButtonImage:React.FC<ButtonImage> = ({name, src, onClickAdd}) => {
     return (
         <div className='button-image'>
-            <button onClick={onClickAdd} type="button"><img className="ingredient-image" src={src} alt={name}></img>
+            <button className="btn-image" onClick={onClickAdd} type="button"><img className="ingredient-image" src={src} alt={name}></img>
             </button>
             <p className='name'>{name}</p>
         </div>
 
-        // <div className='ingredient'>
-        //
-        //
-        //     <p>X {count}</p>
-        //         {count !== 0? <button type="button">Reset</button>: null }
-    //     </div>
     );
 };
 
