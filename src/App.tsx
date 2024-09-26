@@ -62,6 +62,32 @@ function App() {
 
   };
 
+    const DeleteIngredient =(ingredientName:string) => {
+        let index = ingredients.findIndex(ingredient => ingredient.name === ingredientName);
+        const copyIngredients = ingredients.map(ingredient => {
+            if (ingredient.name === ingredientName) {
+                return {
+                    ...ingredient,
+                    count: ingredient.count - 1,
+                };
+            }
+            return {...ingredient};
+
+        })
+        let priceToState = ingredientsItem.reduce((acc, item) => {
+            if ((item.title === ingredientName)) {
+                acc -= item.cost;
+            }
+            return acc;
+        }, price);
+
+        setPrice(priceToState);
+        setIngredients(copyIngredients);
+        const deleteIngredientImage = document.getElementsByClassName(ingredients[index].name);
+        console.log(deleteIngredientImage);
+        deleteIngredientImage[0].remove();
+    }
+
 
   return (
     <>
@@ -78,7 +104,7 @@ function App() {
                     </div>
                     <div className='ingredients-right'>
                         {ingredients.map((ingredient) =>
-                            <Quantity key={ingredient.name + 1} count={ingredient.count}/>)
+                            <Quantity key={ingredient.name + 1} count={ingredient.count} deleteIngredient={()=>DeleteIngredient(ingredient.name)}/>)
                         }
                     </div>
                 </div>
@@ -90,9 +116,6 @@ function App() {
                             <div className="Seeds1"></div>
                             <div className="Seeds2"></div>
                         </div>
-                        {/*<div className="Salad"></div>*/}
-                        {/*<div className="Cheese"></div>*/}
-                        {/*<div className="Meat"></div>*/}
                         <div id="breadBottom" className="BreadBottom"></div>
                     </div>
                     <span className='price'> Price: {price} som </span>
