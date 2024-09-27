@@ -10,7 +10,6 @@ import ButtonAndName from './components/ButtonAndName/ButtonAndName.tsx';
 import {IIngredients} from './types';
 import QuantityAndDelete from './components/QuantityAndDelete/QuantityAndDelete.tsx';
 
-
 const App = () => {
     const ingredientsItem: IngredientType[] = [
         {title: 'Meat', cost: 80, src: meat},
@@ -44,7 +43,7 @@ const App = () => {
             },price);
             setPrice(priceToState);
             setIngredients(copyIngredients);
-  };
+    };
 
     const DeleteIngredient =(ingredientName:string) => {
         const copyIngredients = ingredients.map(ingredient => {
@@ -111,7 +110,7 @@ const App = () => {
                 </div>
             </div>
         </>
-  );
+    );
 };
 
 export default App;
