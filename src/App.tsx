@@ -1,22 +1,15 @@
-import {useState} from "react";
+import {useState} from 'react';
 import './App.css';
 import meat from './assets/meat.png';
 import cheese from './assets/cheese.png';
 import salad from './assets/salad.png';
 import bacon from './assets/bacon.png';
-import ButtonImage from "./components/ButtonImage/ButtonImage.tsx";
-import Quantity from "./components/Quantity/Quantity.tsx";
+import Price from './components/Price/Price.tsx';
+import {IngredientType} from './types';
+import ButtonAndName from './components/ButtonAndName/ButtonAndName.tsx';
+import {IIngredients} from './types';
+import QuantityAndDelete from './components/QuantityAndDelete/QuantityAndDelete.tsx';
 
-type IngredientType = {
-    title: string;
-    cost: number;
-    src: string;
-}
-
-interface IIngredients {
-    name: string ;
-    count: number;
-}
 
 const App = () => {
     const ingredientsItem: IngredientType[] = [
@@ -35,32 +28,25 @@ const App = () => {
         ]);
 
     const AddIngredientToBurger = (ingredientName:string) =>{
-        let index = ingredients.findIndex(ingredient => ingredient.name === ingredientName);
-            const copyIngredients = ingredients.map(ingredient => {
-                if (ingredient.name === ingredientName) {
+        const copyIngredients = ingredients.map(ingredient => {
+            if (ingredient.name === ingredientName) {
                 return {
-            ...ingredient,
-            count: ingredient.count + 1,
+                    ...ingredient,
+                     count: ingredient.count + 1,
                 };
             }
                 return {...ingredient};
             });
-        let priceToState = ingredientsItem.reduce((acc,item) => {
-            if((item.title === ingredientName)){
-                acc+= item.cost;
-            }
+        const priceToState = ingredientsItem.reduce((acc,item) => {
+            if(item.title === ingredientName){
+                acc+= item.cost;}
             return acc;
-        },price);
-        setPrice(priceToState);
-        setIngredients(copyIngredients);
-        const newIngredientImage = document.createElement('DIV')
-        newIngredientImage.className = ingredients[index].name;
-        const burgerImage = document.getElementById('burger') as HTMLImageElement;
-        burgerImage.insertBefore(newIngredientImage, document.getElementById('breadBottom'));
+            },price);
+            setPrice(priceToState);
+            setIngredients(copyIngredients);
   };
 
     const DeleteIngredient =(ingredientName:string) => {
-        let index = ingredients.findIndex(ingredient => ingredient.name === ingredientName);
         const copyIngredients = ingredients.map(ingredient => {
             if (ingredient.name === ingredientName) {
                 return {
@@ -69,39 +55,46 @@ const App = () => {
                 };
             }
             return {...ingredient};
-        })
-
-        let priceToState = ingredientsItem.reduce((acc, item) => {
+        });
+        const priceToState = ingredientsItem.reduce((acc, item) => {
             if ((item.title === ingredientName)) {
                 acc -= item.cost;
             }
             return acc;
-        }, price);
+            }, price);
         setPrice(priceToState);
         setIngredients(copyIngredients);
-        const deleteIngredientImage = document.getElementsByClassName(ingredients[index].name);
-        deleteIngredientImage[0].remove();
+    };
+
+    const createArrayForDrawBurger = (ingredients:IIngredients[]) => {
+        const arrayOfName:string[] = [];
+        {ingredients.map((ingredient) =>{
+            if(ingredient.count > 0){
+                for (let i = 0; i < ingredient.count; i++){
+                    arrayOfName.push(ingredient.name);
+                }
+            }
+        });
+        }
+        return arrayOfName;
+    };
+
+    let burgerList = null;
+
+    if (createArrayForDrawBurger(ingredients).length !== 0) {
+        burgerList = createArrayForDrawBurger(ingredients).map(ingredient =>{
+            return (<div key={ingredient + String(Math.floor(Math.random() * 1000))} className={ingredient}></div>);
+        });
     }
 
-
-  return (
-    <>
-        <div className="content">
-            <div>
+    return (
+        <>
+            <div className="content">
+                <div>
                 <h2>Ingredients</h2>
                 <div className='ingredients-block'>
-                    <div className='ingredients-left'>
-                        {ingredientsItem.map((ingredient) =>
-                            <ButtonImage onClickAdd={() => AddIngredientToBurger(ingredient.title)}
-                                         key={ingredient.title}
-                                         name={ingredient.title}
-                                         src={ingredient.src}/>)}
-                    </div>
-                    <div className='ingredients-right'>
-                        {ingredients.map((ingredient) =>
-                            <Quantity key={ingredient.name + 1} count={ingredient.count} deleteIngredient={()=>DeleteIngredient(ingredient.name)}/>)
-                        }
-                    </div>
+                    <ButtonAndName ingredientsItem={ingredientsItem} AddIngredientToBurger={AddIngredientToBurger}/>
+                    <QuantityAndDelete ingredients={ingredients} DeleteIngredient={DeleteIngredient}/>
                 </div>
             </div>
                 <div>
@@ -111,13 +104,14 @@ const App = () => {
                             <div className="Seeds1"></div>
                             <div className="Seeds2"></div>
                         </div>
+                        {burgerList}
                         <div id="breadBottom" className="BreadBottom"></div>
                     </div>
-                    <span className='price'> Price: {price} som </span>
+                    <Price price={price}/>
                 </div>
             </div>
         </>
-  )
+  );
 };
 
-export default App
+export default App;

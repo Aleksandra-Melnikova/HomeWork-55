@@ -1,5 +1,5 @@
-import React from "react";
-import './Quantity.css'
+import React from 'react';
+import './Quantity.css';
 
 interface Quantity {
     count: number;
